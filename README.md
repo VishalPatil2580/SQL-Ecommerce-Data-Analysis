@@ -204,7 +204,7 @@ Implemented advanced SQL concepts including:
   
 ---
 
-
-- Vishal PatiVishal Patil
-
+# Author
+- Vishal Patil
+  
 Aspiring Data Analyst
