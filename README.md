@@ -1,53 +1,252 @@
 # SQL E-Commerce Data Analysis
 
-## Project Overview
+This project analyzes an e-commerce dataset using MySQL. The project starts with database setup and data inspection, followed by data quality assessment, data standardization, validation, exploratory data analysis, business analysis, KPI reporting, and advanced SQL.
 
-This project analyzes an e-commerce dataset using MySQL. The workflow starts with database creation and data loading, followed by data quality assessment, cleaning, validation, exploratory data analysis, business analysis, KPI reporting, and advanced SQL techniques.
-
-The objective of this project is to transform raw transactional data into meaningful business insights by applying SQL concepts commonly used in data analyst roles.
-
----
-
-## Objectives
-
-- Build an e-commerce database in MySQL
-- Assess and improve data quality
-- Standardize inconsistent data
-- Validate data before analysis
-- Perform exploratory data analysis (EDA)
-- Solve business-related analytical questions
-- Create KPIs for business reporting
-- Apply advanced SQL concepts such as CTEs, Window Functions, Views, and Stored Procedures
-
----
+The main objective is to transform raw e-commerce data into useful business insights and build reusable SQL reporting objects.
 
 ## Tools Used
 
 - MySQL
-- MySQL Workbench
+- MySQL Workbench 8.0 CE
 - SQL
-
----
 
 ## Dataset
 
-The project uses four datasets:
+The project uses three related tables:
 
-- Customers Dataset
-- Orders Dataset
-- Products Dataset
+| Table       | Description                                                                                        |
+|-------------|----------------------------------------------------------------------------------------------------|
+| `customers` | Customer details such as name, gender, age, city, state, signup date, and membership.              |
+| `products`  | Product details such as product name, category, brand, price, stock quantity, supplier, and rating.|
+| `orders`    | Order transactions including order date, quantity, discount, payment method, and order status.     |
 
----
+### Database Relationships
 
-## Project Structure
-
+```text
+Customers
+    │
+    │ Customer_ID
+    ▼
+Orders
+    ▲
+    │ Product_ID
+    │
+Products
 ```
+
+- One customer can place multiple orders.
+- One product can appear in multiple orders.
+- The `orders` table connects the `customers` and `products` tables.
+
+## Project Workflow
+
+```text
+Database Setup
+      ↓
+Data Quality Assessment
+      ↓
+Data Standardization
+      ↓
+Data Type Conversion
+      ↓
+Data Validation
+      ↓
+Exploratory Data Analysis
+      ↓
+Business Analysis
+      ↓
+KPI Analysis
+      ↓
+Advanced SQL
+      ↓
+Views and Stored Procedures
+```
+
+## Project Steps
+
+### 1. Database Setup
+
+- Created the e-commerce database.
+- Imported the customer, product, and order datasets.
+- Verified the imported tables.
+- Inspected table structures and data types.
+- Checked row and column counts.
+
+### 2. Data Quality Assessment
+
+The following checks were performed:
+
+- NULL and blank values
+- Duplicate rows
+- Duplicate customer, product, and order IDs
+- Invalid values
+- Inconsistent text values
+- Referential integrity issues
+- Potential outliers
+
+### 3. Data Standardization
+
+Data was standardized by:
+
+- Removing leading and trailing spaces
+- Converting blank values to NULL
+- Standardizing text values
+- Standardizing category names
+- Standardizing membership values
+- Standardizing payment methods
+- Creating backup tables before making changes
+
+### 4. Data Type Conversion
+
+Relevant columns were converted to suitable data types to support accurate analysis and calculations.
+
+### 5. Data Validation
+
+The cleaned data was validated by checking:
+
+- Missing values
+- Duplicate IDs
+- Invalid age values
+- Invalid prices
+- Invalid quantities
+- Invalid ratings
+- Invalid discounts
+- Invalid foreign keys
+- Future dates
+- Accepted categorical values
+
+### 6. Exploratory Data Analysis
+
+EDA was performed to understand:
+
+- Customer distribution
+- Age distribution
+- Membership distribution
+- Product and category distribution
+- Brand and supplier distribution
+- Payment method usage
+- Order status distribution
+- Monthly and yearly order trends
+- Product ordering patterns
+
+### 7. Business Analysis
+
+The analysis answered business questions related to:
+
+- Total and net revenue
+- Discount impact
+- Average order value
+- Revenue by category and brand
+- Revenue by customer
+- Revenue by membership
+- Revenue by state and city
+- Product performance
+- Monthly and yearly revenue trends
+- Top customers by purchases and revenue
+
+### 8. KPI Analysis
+
+The following KPIs were calculated:
+
+**Sales KPIs**
+
+- Total Gross Revenue
+- Total Discount Amount
+- Total Net Revenue
+- Average Order Value
+- Total Orders
+- Total Quantity Sold
+
+**Customer KPIs**
+
+- Total Customers
+- Repeat Customers
+- Revenue per Customer
+
+**Product KPIs**
+
+- Products Sold
+- Average Selling Price
+- Average Quantity per Order
+
+**Operational KPIs**
+
+- Cancellation Rate
+- Revenue by Membership
+- Revenue by State
+- Revenue by Payment Method
+- Monthly Revenue
+- Yearly Revenue
+
+### 9. Advanced SQL
+
+Advanced SQL concepts used in the project include:
+
+- Common Table Expressions (CTEs)
+- Window Functions
+- `ROW_NUMBER()`
+- `RANK()`
+- `DENSE_RANK()`
+- `LAG()`
+- Running Totals
+- Revenue Contribution Analysis
+- Customer Lifetime Value (CLV)
+- Top-N Analysis
+- Category Ranking
+
+### 10. Views and Stored Procedures
+
+A reusable `sales_summary` view was created by combining customer, product, and order information. It also calculates:
+
+- Gross Revenue
+- Discount Amount
+- Net Revenue
+
+Additional reporting views were created for:
+
+- Customer Revenue Summary
+- Product Performance
+- Monthly Sales Summary
+- Category Performance
+- State Revenue Summary
+
+Stored procedures were created for:
+
+- Top Customers
+- Revenue by Year
+- Category Performance
+
+## SQL Concepts Covered
+
+- `SELECT`
+- `WHERE`
+- `DISTINCT`
+- `ORDER BY`
+- `GROUP BY`
+- `HAVING`
+- Aggregate Functions
+- `CASE`
+- String Functions
+- Date Functions
+- Mathematical Functions
+- `JOIN`
+- Subqueries
+- Common Table Expressions (CTEs)
+- Window Functions
+- Ranking Functions
+- Views
+- Stored Procedures
+
+## Repository Structure
+
+```text
 SQL-Ecommerce-Data-Analysis
 │
 ├── Dataset
 │   ├── Customers_Dataset.csv
 │   ├── Orders_Dataset.csv
 │   ├── Products_Dataset.csv
+│   └── Ecommerce_Dataset.xlsx
 │
 ├── SQL Queries
 │   ├── 01_Database_Setup.sql
@@ -55,7 +254,7 @@ SQL-Ecommerce-Data-Analysis
 │   ├── 03_Data_Standardization.sql
 │   ├── 04_Data_Type_Conversion.sql
 │   ├── 05_Data_Validation.sql
-│   ├── 06_EDA_(Exploratory_Data_Analysis).sql
+│   ├── 06_EDA_(Exploratory Data Analysis).sql
 │   ├── 07_Business_Analysis.sql
 │   ├── 08_Sales_Summary_View.sql
 │   ├── 09_KPI_Analysis.sql
@@ -63,148 +262,111 @@ SQL-Ecommerce-Data-Analysis
 │   └── 11_Business_Reporting_Objects.sql
 │
 ├── Documentation
-│   └── SQL_Ecommerce_Project_Report.pdf
+│   └── E-Commerce Data Analysis using SQL.pdf
 │
 ├── Screenshots
+│   ├── 01_Database_Overview.png
+│   ├── 02_Customers_Table_Data.png
+│   ├── 03_Products_Table_Data.png
+│   ├── 04_Orders_Table_Data.png
+│   ├── 05_Duplicate_Customer_Check.png
+│   ├── 06_Remove_Leading_Trailing_Spaces.png
+│   ├── 07_Data_Validation.png
+│   ├── 08_Least_Ordered_Product.png
+│   ├── 09_Customers_Age_Distribution.png
+│   ├── 10_Top10_Customers_With_Highest_Purchase.png
+│   ├── 11_Top10_Customers_By_Revenue.png
+│   └── 12_Monthly_KPI_Analysis.png
 │
 ├── README.md
 └── LICENSE
 ```
 
----
+## Screenshots
 
-## Project Workflow
+### Database Overview
 
-### 1. Database Setup
+![Database Overview](Screenshots/01_Database_Overview.png)
 
-- Created the database
-- Imported datasets with tables
-- Established relationships
+### Customers Table
 
-### 2. Data Quality Assessment
+![Customers Table](Screenshots/02_Customers_Table_Data.png)
 
-- Checked missing values
-- Identified duplicate records
-- Verified inconsistent values
-- Examined invalid entries
+### Products Table
 
-### 3. Data Standardization
+![Products Table](Screenshots/03_Products_Table_Data.png)
 
-- Standardized text values
-- Fixed inconsistent formatting
-- Improved data consistency
+### Orders Table
 
-### 4. Data Type Conversion
+![Orders Table](Screenshots/04_Orders_Table_Data.png)
 
-- Converted columns to appropriate data types
-- Improved compatibility for analysis
+### Data Quality Assessment
 
-### 5. Data Validation
+![Duplicate Customer Check](Screenshots/05_Duplicate_Customer_Check.png)
 
-- Validated important business fields
-- Verified numerical values
-- Checked date consistency
+### Data Standardization
 
-### 6. Exploratory Data Analysis
+![Remove Leading and Trailing Spaces](Screenshots/06_Remove_Leading_Trailing_Spaces.png)
 
-Examples of analysis performed:
+### Data Validation
 
-- Monthly sales trend
-- Product performance
-- Customer purchase behavior
-- Payment method distribution
+![Data Validation](Screenshots/07_Data_Validation.png)
 
-### 7. Business Analysis
+### Exploratory Data Analysis
 
-Business questions answered include:
+![Least Ordered Product](Screenshots/08_Least_Ordered_Product.png)
 
-- Which products generate the highest revenue?
-- Who are the top customers?
-- Which payment methods are used most?
-- Which categories contribute the most to sales?
-- How do sales change over time?
+![Customer Age Distribution](Screenshots/09_Customers_Age_Distribution.png)
 
-### 8. KPI Analysis
+### Customer Analysis
 
-Calculated KPIs such as:
+![Top 10 Customers by Purchase](Screenshots/10_Top10_Customers_With_Highest_Purchase.png)
 
-- Total Revenue
-- Total Orders
-- Average Order Value
-- Total Customers
-- Average Customer Spending
+![Top 10 Customers by Revenue](Screenshots/11_Top10_Customers_By_Revenue.png)
 
-### 9. Advanced SQL
+### Monthly KPI Analysis
 
-Implemented advanced SQL concepts including:
+![Monthly KPI Analysis](Screenshots/12_Monthly_KPI_Analysis.png)
 
-- Common Table Expressions (CTEs)
-- Window Functions
-- Ranking Functions
-- Subqueries
-- Views
-- Stored Procedures
+## How to Run the Project
 
----
-
-## SQL Concepts Covered
-
-- SELECT
-- WHERE
-- ORDER BY
-- GROUP BY
-- HAVING
-- Aggregate Functions
-- CASE
-- String Functions
-- Date Functions
-- JOINs
-- Subqueries
-- Common Table Expressions (CTEs)
-- Window Functions
-- Views
-- Stored Procedures
-
----
-
-## Repository Contents
-
-| Folder        | Description                            |
-|---------------|----------------------------------------|
-| Dataset       | Source datasets used in the project    |
-| SQL Queries   | SQL scripts organized by project phase |
-| Documentation | Project report                         |
-| Screenshots   | Query outputs and database screenshots |
-
----
-
-## How to Run
-
-1. Open MySQL Workbench.
-2. Create a new database.
-3. Import the datasets.
+1. Download or clone this repository.
+2. Open MySQL Workbench 8.0 CE.
+3. Import the datasets from the `Dataset` folder.
 4. Execute the SQL files in numerical order.
-5. Review the outputs and screenshots.
-
----
+5. Review the query results and reporting objects.
 
 ## Skills Demonstrated
 
-- SQL
-- Data Cleaning
+- SQL Data Cleaning
+- Data Quality Assessment
+- Data Standardization
 - Data Validation
-- Data Analysis
-- Exploratory Data Analysis (EDA)
+- Exploratory Data Analysis
 - Business Analysis
 - KPI Reporting
-- Views
-- Stored Procedures
-- Window Functions
-- Problem Solving
-  
----
+- Relational Database Design
+- CTEs and Window Functions
+- Views and Stored Procedures
+- Analytical Problem Solving
 
-# Author
-- Vishal Patil
-  
-Aspiring Data Analyst
+## Future Improvements
+
+- Add indexes to improve query performance.
+- Implement triggers for automated data validation.
+- Add primary and foreign key constraints after completing data quality checks.
+- Connect the SQL database to Power BI or Tableau.
+- Automate recurring reports using scheduled procedures.
+- Extend the analysis with RFM segmentation, cohort analysis, and sales forecasting.
+
+## License
+
+This project is licensed under the MIT License.
+
+## Author
+
+**Vishal Patil**
+
+Data Analyst | SQL | Excel | Python | Power BI
+
+[LinkedIn Profile](https://www.linkedin.com/in/vishal-patil-338279414/)
